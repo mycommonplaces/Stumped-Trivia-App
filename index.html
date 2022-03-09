@@ -10,12 +10,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap"
-      rel="stylesheet"
-    /> -->
+
     link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -124,10 +119,9 @@
           }
           options.push(data.results[0].correct_answer);
 
-          // Place the options in variable for styling
+          // Place the options in variable, styling
           const optionsList = options.join(", ");
           const optionsStyle = document.querySelector(".options");
-          optionsStyle.style.color = "#ffffff";
           optionsStyle.style.opacity = ".0";
           optionsStyle.style.background = "transparent";
 
@@ -138,7 +132,6 @@
 
           // Style the answer to be hidden until the getAnswer function changes it
           const answerStyle = document.querySelector(".answer");
-          answerStyle.style.color = "#ffffff";
           answerStyle.style.opacity = ".0";
           answerStyle.style.background = "transparent";
 
