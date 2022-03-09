@@ -31,7 +31,6 @@
 
       .header {
         font-family: "Ole", cursive;
-        /* font-family: "Rock Salt", cursive; */
       }
       .header h1 {
         font-size: 160px;
@@ -101,6 +100,7 @@
   </body>
 
   <script>
+    // Automatically fetch a question when page loads.
     window.onload = getQuestions;
 
     function getQuestions() {
@@ -115,35 +115,41 @@
 
           document.querySelector(
             ".question"
-          ).innerHTML = `Question: ${data.results[0].question}`;
+          ).innerHTML = `${data.results[0].question}`;
 
+          // Create a new array and push in the in/correct answers from the data
           let options = [];
           for (i = 0; i < 3; i++) {
             options.push(data.results[0].incorrect_answers[i]);
           }
           options.push(data.results[0].correct_answer);
-          let optionsList = options.join(", ");
 
+          // Place the options in variable for styling
+          const optionsList = options.join(", ");
           const optionsStyle = document.querySelector(".options");
           optionsStyle.style.color = "#ffffff";
           optionsStyle.style.opacity = ".0";
           optionsStyle.style.background = "transparent";
 
+          // Populate the options HTML
           document.querySelector(
             ".options"
           ).innerHTML = `Options: ${optionsList}`;
 
+          // Style the answer to be hidden until the getAnswer function changes it
           const answerStyle = document.querySelector(".answer");
           answerStyle.style.color = "#ffffff";
           answerStyle.style.opacity = ".0";
           answerStyle.style.background = "transparent";
 
+          // Populate the answer HTML
           document.querySelector(
             ".answer"
           ).innerHTML = `Answer: ${data.results[0].correct_answer}`;
         });
     }
 
+    // Overwrite the answer styles to display the answer
     function showAnswer() {
       const answerStyle = document.querySelector(".answer");
       answerStyle.style.color = "#ffffff";
@@ -151,6 +157,7 @@
       answerStyle.style.background = "green";
     }
 
+    // Overwrite the options styles to display hints
     function showHint() {
       const optionsStyle = document.querySelector(".options");
       optionsStyle.style.color = "#ffffff";
