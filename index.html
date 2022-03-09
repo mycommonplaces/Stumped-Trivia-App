@@ -10,10 +10,16 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Rock+Salt&display=swap"
+      rel="stylesheet"
+    /> -->
+    link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ole&display=swap"
       rel="stylesheet"
     />
     <title>Paul's Trivia App</title>
@@ -21,13 +27,14 @@
     <style>
       body {
         background-image: url("question-mark.jpeg");
-        /* background-size: cover;
-        background-position: center center; */
       }
 
       .header {
-        font-family: "Rock Salt", cursive;
-        font-size: xx-large;
+        font-family: "Ole", cursive;
+        /* font-family: "Rock Salt", cursive; */
+      }
+      .header h1 {
+        font-size: 160px;
       }
 
       .container {
@@ -49,6 +56,11 @@
         font-size: 45px;
       }
 
+      .options {
+        font-size: 25px;
+        cursor: default;
+      }
+
       .answer {
         opacity: 0;
       }
@@ -61,15 +73,17 @@
   </head>
   <body>
     <div class="container mt-4 p-5 bg-primary text-white rounded header">
-      <h1>Trivia!</h1>
+      <h1>Get Stumped.</h1>
     </div>
     <div class="container trivia">
       <div>
         <button class="button btn btn-success" onclick="getQuestions()">
           Stump Me Again
         </button>
-
-        <button class="button btn btn-warning answerBtn" onclick="showAnswer()">
+        <button class="button btn btn-warning hintBtn" onclick="showHint()">
+          Get a Hint
+        </button>
+        <button class="button btn btn-danger answerBtn" onclick="showAnswer()">
           Show Answer
         </button>
       </div>
@@ -95,8 +109,6 @@
           return response.json();
         })
         .then((data) => {
-          console.log(data);
-
           document.querySelector(
             ".category"
           ).innerHTML = `Category: ${data.results[0].category}<br/>Difficulty: ${data.results[0].difficulty}`;
@@ -104,6 +116,22 @@
           document.querySelector(
             ".question"
           ).innerHTML = `Question: ${data.results[0].question}`;
+
+          let options = [];
+          for (i = 0; i < 3; i++) {
+            options.push(data.results[0].incorrect_answers[i]);
+          }
+          options.push(data.results[0].correct_answer);
+          let optionsList = options.join(", ");
+
+          const optionsStyle = document.querySelector(".options");
+          optionsStyle.style.color = "#ffffff";
+          optionsStyle.style.opacity = ".0";
+          optionsStyle.style.background = "transparent";
+
+          document.querySelector(
+            ".options"
+          ).innerHTML = `Options: ${optionsList}`;
 
           const answerStyle = document.querySelector(".answer");
           answerStyle.style.color = "#ffffff";
@@ -121,6 +149,13 @@
       answerStyle.style.color = "#ffffff";
       answerStyle.style.opacity = ".7";
       answerStyle.style.background = "green";
+    }
+
+    function showHint() {
+      const optionsStyle = document.querySelector(".options");
+      optionsStyle.style.color = "#ffffff";
+      optionsStyle.style.opacity = "1";
+      optionsStyle.style.background = "#ffc107";
     }
   </script>
 </html>
